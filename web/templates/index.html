@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 col-lg-5">
+        <div class="gaming-card welcome-card text-center">
+            <div class="welcome-header">
+                <i class="fas fa-dice" style="font-size: 4rem; color: #00d9ff;"></i>
+                <h1 class="mt-4 gaming-title">GUESS IT</h1>
+                <p class="subtitle">The Ultimate Number Guessing Game</p>
+            </div>
+
+            <div class="welcome-body mt-5">
+                {% if error %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle"></i> {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endif %}
+
+                <form method="POST" class="needs-validation" novalidate>
+                    <div class="mb-4">
+                        <label for="player" class="form-label gaming-label">
+                            <i class="fas fa-user"></i> Enter Your Nickname
+                        </label>
+                        <input 
+                            type="text" 
+                            class="form-control gaming-input" 
+                            id="player" 
+                            name="player" 
+                            placeholder="Your awesome nickname..."
+                            required
+                            minlength="2"
+                            maxlength="20"
+                            pattern="[a-zA-Z0-9 ]+"
+                        >
+                        <small class="form-text text-muted">2-20 characters, letters/numbers/spaces only</small>
+                    </div>
+
+                    <button type="submit" class="btn gaming-btn-primary btn-lg w-100 mb-3">
+                        <i class="fas fa-play-circle"></i> START PLAYING
+                    </button>
+                </form>
+
+                <hr class="gaming-hr">
+
+                <div class="info-section mt-4">
+                    <h5 class="gaming-subtitle">How to Play:</h5>
+                    <ul class="text-start small">
+                        <li><i class="fas fa-check-circle" style="color: #00d9ff;"></i> Choose your difficulty</li>
+                        <li><i class="fas fa-check-circle" style="color: #00d9ff;"></i> Guess the secret number</li>
+                        <li><i class="fas fa-check-circle" style="color: #00d9ff;"></i> Get hints based on closeness</li>
+                        <li><i class="fas fa-check-circle" style="color: #00d9ff;"></i> Win in fewer attempts for better score!</li>
+                    </ul>
+                </div>
+
+                <div class="mt-4">
+                    <p class="small text-muted mb-0">Want to check the leaderboard? <a href="/leaderboard" class="gaming-link">View Leaderboard</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Form validation
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            let form = document.querySelector('.needs-validation');
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
+
+{% endblock %}

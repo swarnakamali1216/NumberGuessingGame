@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="gaming-container py-4">
+    <div class="text-center mb-4">
+        <h1 class="gaming-title"><i class="fas fa-shield-alt"></i> ADMIN DASHBOARD</h1>
+        <p class="subtitle">Total Users: <strong>{{ total_users }}</strong></p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="admin-stat">
+                <div class="stat-number">{{ total_users }}</div>
+                <div class="stat-label"><i class="fas fa-users"></i> Total Players</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-stat">
+                <div class="stat-number">{{ players|selectattr('games_won')|list|length }}</div>
+                <div class="stat-label"><i class="fas fa-trophy"></i> Active Players</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-stat">
+                <div class="stat-number">{{ (players|map(attribute='games_won')|sum) }}</div>
+                <div class="stat-label"><i class="fas fa-check-circle"></i> Total Wins</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-stat">
+                <div class="stat-number">{{ (players|map(attribute='games_lost')|sum) }}</div>
+                <div class="stat-label"><i class="fas fa-times-circle"></i> Total Losses</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-12">
+            <div class="gaming-card">
+                <h5 class="gaming-label mb-4"><i class="fas fa-list"></i> All Players</h5>
+
+                {% if players %}
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th><i class="fas fa-user"></i> Player Name</th>
+                                <th><i class="fas fa-trophy"></i> Wins</th>
+                                <th><i class="fas fa-times-circle"></i> Losses</th>
+                                <th><i class="fas fa-star"></i> Best Score</th>
+                                <th><i class="fas fa-fire"></i> Streak</th>
+                                <th><i class="fas fa-medal"></i> Achievements</th>
+                                <th><i class="fas fa-chart-line"></i> Total Attempts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for player in players %}
+                            <tr>
+                                <td><strong>#{{ loop.index }}</strong></td>
+                                <td class="player-cell">{{ player.name }}</td>
+                                <td><span class="badge bg-success">{{ player.games_won }}</span></td>
+                                <td><span class="badge bg-danger">{{ player.games_lost }}</span></td>
+                                <td>{{ player.best_score if player.best_score else '—' }}</td>
+                                <td><span class="badge bg-warning">{{ player.streak }}</span></td>
+                                <td>
+                                    <span class="badge bg-info">{{ player.achievements }}</span>
+                                </td>
+                                <td>{{ player.total_attempts }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> No players registered yet.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Actions -->
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-outline-secondary mx-2">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="/admin/logout" class="btn btn-outline-danger mx-2">
+            <i class="fas fa-sign-out-alt"></i> Logout Admin
+        </a>
+    </div>
+</div>
+
+{% endblock %}

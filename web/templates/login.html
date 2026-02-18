@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-5 col-lg-4">
+        <div class="gaming-card login-card">
+            <div class="text-center mb-4">
+                <i class="fas fa-sign-in-alt" style="font-size: 3rem; color: #00d9ff;"></i>
+                <h1 class="mt-3 gaming-title">GUESS IT</h1>
+                <p class="subtitle">Sign in to play and track your stats</p>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle"></i> {{ error }}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+
+            <!-- Gmail Login Button (only show if OAuth enabled) -->
+            {% if oauth_enabled %}
+            <a href="/login/google" class="btn btn-lg w-100 btn-google mb-3">
+                <i class="fab fa-google"></i> Continue with Google
+            </a>
+
+            <div class="login-divider">
+                <span>OR</span>
+            </div>
+            {% endif %}
+
+            <!-- Guest Login -->
+            <form method="POST" class="guest-login">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                <div class="mb-3">
+                    <label for="nickname" class="form-label gaming-label">
+                        <i class="fas fa-user"></i> Play as Guest
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-control gaming-input" 
+                        id="nickname" 
+                        name="nickname" 
+                        placeholder="Enter your nickname..."
+                        minlength="2"
+                        maxlength="20"
+                    >
+                    <small class="form-text text-muted">2-20 characters (no account needed)</small>
+                </div>
+                <button type="submit" class="btn gaming-btn-primary btn-lg w-100">
+                    <i class="fas fa-play-circle"></i> Play as Guest
+                </button>
+            </form>
+
+            <hr class="gaming-hr my-4">
+
+            <!-- Info Section -->
+            <div class="info-section mt-4">
+                <h6 class="gaming-subtitle mb-3">Why Sign In?</h6>
+                <ul class="text-start small">
+                    <li><i class="fas fa-check-circle" style="color: #00d9ff;"></i> Keep your stats private</li>
+                    <li><i class="fas fa-check-circle" style="color: #00d9ff;"></i> Multi-device access</li>
+                    <li><i class="fas fa-check-circle" style="color: #00d9ff;"></i> Cloud backup</li>
+                    <li><i class="fas fa-check-circle" style="color: #00d9ff;"></i> Better security</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="text-center mt-4">
+            <small class="text-muted">
+                <i class="fas fa-lock"></i> Your data is secure and private<br>
+                © 2026 Swarna1216 | All Rights Reserved
+            </small>
+        </div>
+    </div>
+</div>
+
+<style>
+.login-card {
+    animation: slideInUp 0.6s ease;
+}
+
+.btn-google {
+    background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%);
+    color: #1a1a2e;
+    border: 2px solid #ffffff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-google:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 217, 255, 0.2);
+}
+
+.login-divider {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.login-divider span {
+    margin: 0 1rem;
+}
+
+.guest-login {
+    background: rgba(0, 217, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+</style>
+
+{% endblock %}

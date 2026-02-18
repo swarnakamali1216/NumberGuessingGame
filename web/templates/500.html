@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-8 col-lg-6 text-center">
+        <div class="gaming-card error-card">
+            <h1 class="error-code">500</h1>
+            <h2 class="gaming-title mt-3">Server Error</h2>
+            <p class="subtitle">Oops! Something went wrong on our end.</p>
+
+            <div class="mt-5">
+                <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ff006e; opacity: 0.5;"></i>
+            </div>
+
+            <div class="mt-5">
+                <a href="/" class="btn gaming-btn-primary btn-lg">
+                    <i class="fas fa-home"></i> Return Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

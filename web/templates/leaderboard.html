@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="gaming-container py-4">
+    <div class="text-center mb-4">
+        <h1 class="gaming-title"><i class="fas fa-trophy"></i> LEADERBOARD</h1>
+        <p class="subtitle">Top Players Rankings</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% if leaderboard %}
+            <div class="gaming-card">
+                <div class="leaderboard-table">
+                    {% for item in leaderboard %}
+                    <div class="leaderboard-row">
+                        <div class="rank-badge">
+                            {% if loop.index == 1 %}
+                                <i class="fas fa-crown" style="color: gold;"></i> 1st
+                            {% elif loop.index == 2 %}
+                                <i class="fas fa-medal" style="color: silver;"></i> 2nd
+                            {% elif loop.index == 3 %}
+                                <i class="fas fa-medal" style="color: #cd7f32;"></i> 3rd
+                            {% else %}
+                                #{{ loop.index }}
+                            {% endif %}
+                        </div>
+                        <div class="player-info">
+                            <span class="player-name">{{ item.name }}</span>
+                            <span class="win-count"><i class="fas fa-check-circle"></i> {{ item.wins }} win{{ 's' if item.wins != 1 else '' }}</span>
+                        </div>
+                        <div class="score-badge">
+                            <strong>{{ item.best_score }}</strong> <small>attempts</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="gaming-card text-center">
+                <i class="fas fa-inbox" style="font-size: 3rem; color: #ff006e;"></i>
+                <h3 class="mt-3">No Scores Yet</h3>
+                <p>Be the first to play and get on the leaderboard!</p>
+            </div>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="text-center mt-4">
+                {% if session.player_name %}
+                    <a href="/game" class="btn gaming-btn-primary btn-lg mb-3">
+                        <i class="fas fa-play-circle"></i> Return to Game
+                    </a>
+                {% else %}
+                    <a href="/" class="btn gaming-btn-primary btn-lg mb-3">
+                        <i class="fas fa-play-circle"></i> Start Playing
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

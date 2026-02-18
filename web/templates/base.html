@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 GUESS IT - Number Guessing Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gaming-bg">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark gaming-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-gamepad"></i> <strong>GUESS IT</strong>
+            </a>
+            
+            <div class="navbar-content d-flex align-items-center gap-3">
+                {% if current_user.is_authenticated %}
+                    <!-- Logged In User: avatar + dropdown -->
+                    <div class="dropdown">
+                        <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" href="#" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if current_user.avatar_url %}
+                                <img src="{{ current_user.avatar_url }}" alt="avatar" class="rounded-circle" width="36" height="36">
+                            {% else %}
+                                <i class="fas fa-user-circle fa-2x"></i>
+                            {% endif %}
+                            <span class="ms-2">{{ current_user.name }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                            <li><a class="dropdown-item" href="{{ url_for('profile') }}"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('new_game') }}"><i class="fas fa-play me-2"></i>New Game</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <!-- Not Logged In -->
+                    <a href="{{ url_for('index') }}" class="btn btn-sm btn-outline-success">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid gaming-container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer with Copyright -->
+    <footer class="gaming-footer">
+        <p class="footertext">
+            © 2026 <strong>Swarna1216</strong> | All Rights Reserved | 
+            <a href="/privacy" class="footer-link"><small>Privacy Policy</small></a> | 
+            <a href="/terms" class="footer-link"><small>Terms</small></a>
+        </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</body>
+</html>
