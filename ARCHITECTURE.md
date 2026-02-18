@@ -390,34 +390,24 @@ gunicorn==20.x
 
 ---
 
-## 🌐 DEPLOYMENT
+## 🌐 DEPLOYMENT (Windows)
 
-### Deploy to Render (Recommended):
-
-1. Push code to GitHub
-2. Go to render.com and create new Web Service
-3. Connect GitHub repo
-4. Set Build Command: `pip install -r requirements.txt`
-5. Set Start Command: `gunicorn server:app`
-6. Add Environment Variables:
-   ```
-   ADMIN_PASSWORD=your-secure-password
-   FLASK_ENV=production
-   ```
-7. Deploy!
-
-### Deploy to Railway:
-```bash
-npm install -g railway
-railway login
-railway link
-railway up
+### Option 1: Development Server (Built-in)
+Best for testing colors, logic, and small changes.
+```powershell
+python web\server_postgresql.py
 ```
 
-### Deploy to PythonAnywhere:
-1. Upload files via web interface
-2. Create Python 3.9+ web app
-3. Set WSGI file to point to `server:app`
+### Option 2: Production Server (Waitress)
+Recommended for more stable performance on Windows.
+```powershell
+pip install waitress
+python run_windows.py
+```
+This uses the **Waitress** WSGI server, which is the standard production-grade choice for Windows environments.
+
+### Option 3: Remote Hosting
+You can still use Render or Railway, but for local "production-like" behavior on your Windows machine, Option 2 is best.
 
 ---
 

@@ -3,9 +3,8 @@ web/.venv/
 __pycache__/
 *.pyc
 .env
-NumberGuessingGame/
 .idea/
 .vscode/
 data/players.json
-alembic/versions/*.py
-!alembic/versions/initial_migration.py
+*.log
+

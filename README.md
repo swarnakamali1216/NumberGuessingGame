@@ -311,18 +311,15 @@ pip install flask flask_sqlalchemy flask_login authlib python-dotenv psycopg2-bi
 
 ---
 
-## 🚢 Deployment (Production)
+## 🚢 Deployment (Windows)
 
-1. Use a production WSGI server (**gunicorn** or **uWSGI**):
-   ```bash
-   pip install gunicorn
-   gunicorn -w 4 -b 0.0.0.0:5000 'web.server_postgresql:app'
+1. Use **Waitress**, a production WSGI server for Windows:
+   ```powershell
+   pip install waitress
+   python run_windows.py
    ```
-2. Set `SECRET_KEY` to a strong random value.
-3. Use a remote PostgreSQL instance (e.g., AWS RDS, Azure Database).
-4. Set `DATABASE_URL` to the remote connection string.
-5. Configure HTTPS/SSL via a reverse proxy (nginx, Apache).
-6. Use environment variables (not `.env` file) for secrets on the server.
+2. Set `SECRET_KEY` and `DATABASE_URL` in your environment (or `.env`).
+3. If hosting publicly on Windows, ensure your firewall allows traffic on port `5000`.
 
 ---
 

@@ -248,7 +248,7 @@ def login_google():
     try:
         redirect_uri = url_for('authorize_google', _external=True)
         app.logger.info(f"Initiating Google OAuth with redirect_uri: {redirect_uri}")
-        return google.authorize_redirect(redirect_uri)
+        return google.authorize_redirect(redirect_uri, prompt='select_account')
     except Exception as e:
         app.logger.error(f"Google OAuth redirect error: {repr(e)}")
         return redirect(url_for('login'))

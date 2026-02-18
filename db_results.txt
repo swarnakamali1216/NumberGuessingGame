@@ -1,0 +1,6 @@
+FAILED: gameuser / swarna -> connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "gameuser"
+
+SUCCESS: gameuser / swarna_00_ - Databases: ['postgres', 'template1', 'template0', 'number_guessing_db']
+SUCCESS: postgres / swarna - Databases: ['postgres', 'template1', 'template0', 'number_guessing_db']
+FAILED: postgres / swarna_00_ -> connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
